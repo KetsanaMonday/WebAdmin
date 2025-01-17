@@ -1,17 +1,36 @@
 {
-  "name": "@example/starter",
-  "version": "0.0.1",
-  "private": true,
+  "name": "core-vite-auth",
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "rollup": "rollup --config",
+    "deploy": " netlify deploy"
+  },
+  "dependencies": {
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@mui/icons-material": "^6",
+    "@mui/material": "^6",
+    "@mui/x-data-grid": "^7.23.5",
+    "@mui/x-data-grid-generator": "^7.23.5",
+    "@mui/x-data-grid-premium": "^7.23.5",
+    "@toolpad/core": "latest",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6"
   },
   "devDependencies": {
-    "@astrojs/preact": "^1.0.2",
-    "@astrojs/sitemap": "^1.0.0",
-    "@netlify/netlify-marketing-tokens": "^1.1.0",
-    "astro": "^2.0.0"
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^4.3.2",
+    "rollup": "^4.30.1",
+    "typescript": "^5",
+    "vite": "^5.4.8"
   }
 }
