@@ -184,6 +184,7 @@ export default function App() {
 
   return (
     <SessionContext.Provider value={sessionContextValue}>
+      
       <AppProvider
         navigation={NAVIGATION}
         branding={{

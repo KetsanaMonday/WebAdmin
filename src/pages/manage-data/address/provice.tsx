@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import API from '../../api/Url.js';
+import instance from '../../api/Url.js';
 import Badge from '@mui/material/Badge';
 import AddIcon from '@mui/icons-material/Add';
 import { green ,red} from '@mui/material/colors';
@@ -26,7 +26,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
-
+import API from '../../api/Url.js';
+import axios from 'axios';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
   ...theme.typography.body2,
@@ -50,19 +51,25 @@ const [data,dataSet]=React.useState([]);
 
 React.useEffect(()=> {
 
-   fetch(`${API}`+"/Provice/read",{
-    method:'GET',
-headers: {
-  'Content-Type': 'application/json'
-},
-redirect: 'follow'
+axios.get(`${API}`+"/Provice/read").then(res => {
+  dataSet(res);
+  console.log(res);
 
-   }).then(res => 
-     res.json()
-   ).then(result=>{
-     dataSet(result.data);
+}).catch(err=> console.log(err));
+
+//    fetch(`${API}`+"/Provice/read",{
+//     method:'GET',
+// headers: {
+//   'Content-Type': 'application/json'
+// },
+// redirect: 'follow'
+
+//    }).then(res => 
+//      res.json()
+//    ).then(result=>{
+//      dataSet(result.data);
   
-  }).catch(err=> console.log(err))
+//   }).catch(err=> console.log(err))
 
   
 
@@ -255,16 +262,21 @@ setAlertStatus(true)
 
   };
 
-  return (<>
+  return (
+  <>
+
   <Typography>Provice</Typography>
+
   <Box sx={{ flexGrow: 1 }} >
 
-      <Grid container spacing={1}>
-
-        <Grid item xs={12}>
-
-          <Item sx={{ boxShadow: 3 }}>     
             <form onSubmit={onSubmitForm} ref={form}>   
+
+      <Grid container spacing={3}>
+
+        <Grid item xs={4}>
+
+
+            
 
 
 
@@ -277,18 +289,22 @@ setAlertStatus(true)
 
 
 <TextField id="outlined-basic" label="Username" variant="outlined" name='username' fullWidth />
+</Grid>
+<Grid item xs={4}>
+
+  
 
 
 <FormControl fullWidth>
 
 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
 
-  <OutlinedInput             
-         name='password' 
 
-    id="outlined-adornment-password"
+  <OutlinedInput              name='password'   id="outlined-adornment-password"
+
     type={showPassword ? 'text' : 'password'}
     endAdornment={
+
       <InputAdornment position="end">
         <IconButton
           aria-label={
@@ -302,12 +318,15 @@ setAlertStatus(true)
           {showPassword ? <VisibilityOff /> : <Visibility />}
         </IconButton>
       </InputAdornment>
+      
     }
     label="Password"
   />
+
 </FormControl>
+</Grid>
 
-
+<Grid item xs={4}>
 
 <FormControl fullWidth>
 
@@ -330,18 +349,38 @@ setAlertStatus(true)
 </Select>
 </FormControl>
 
-<Button onClick={handleClose} variant="contained" type="submit" fullWidth>Add</Button>
+
+
+
+
+
+      </Grid>
+
+      <Grid item xs={4}>
+
+     <Button onClick={handleClose} variant="contained" type="submit" fullWidth>Add</Button>
+     </Grid>
+
+
+
+     <Grid item xs={4}>
+
 <Button onClick={handleClose} variant="contained" type="submit" fullWidth>Edit</Button>
+</Grid>
+
+<Grid item xs={4}>
+
 <Button onClick={handleClose} variant="contained" type="submit" fullWidth>Detele</Button>
+</Grid>
+    
 
+      </Grid>
 
+  </form>  
+    
+    
+<br/>
 
-
-</form></Item>
-
-        </Grid>
-       
-      </Grid>  
       <DataGrid
 
 initialState={initialState}
@@ -406,8 +445,8 @@ initialState={initialState}
         // FilterPanel: MyCustomFilterPanel,
       }}
     />  
-      </Box>
-
+          </Box>
   
+
   </>)
 }
